@@ -25,8 +25,9 @@ public class gui extends JFrame{
                     java.awt.ComponentOrientation.RIGHT_TO_LEFT);
         }
          
-        final textpanel tp1 = new textpanel("NR 1");
-        pane.add(tp1, BorderLayout.PAGE_START);
+        JTextField systeminfo = new JTextField("Welcome "+System.getProperty("user.name")+"."+
+        "JARVIS runs on "+System.getProperty("os.name"));
+        pane.add(systeminfo, BorderLayout.PAGE_START);
         final textpanel tp2 = new textpanel(null);
         tp2.setBackground(Color.black);
         tp2.setForeground(Color.green);
