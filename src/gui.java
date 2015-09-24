@@ -12,6 +12,7 @@ import java.util.Timer;
  
 public class gui extends JFrame{
     public static boolean RIGHT_TO_LEFT = false;
+
      
     public static void addComponentsToPane(Container pane) {
          
@@ -32,9 +33,7 @@ public class gui extends JFrame{
         tp2.setBackground(Color.black);
         tp2.setForeground(Color.green);
         pane.add(tp2, BorderLayout.LINE_START);
-		DefaultCaret caret = (DefaultCaret)tp2.getCaret();
-		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
-        JButton button = new JButton("Matrix!");
+		
 
         // Timer for matrix
         class Matrix extends TimerTask {
@@ -47,7 +46,21 @@ public class gui extends JFrame{
         Timer timer = new Timer();
         timer.schedule(new Matrix(), 0, 500);
         
+        final JTextArea middletext = new JTextArea();
+        middletext.setLineWrap(true);
+
+        // right handsite
+        JButton button = new JButton("Search");
+        button.addActionListener( new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+               DefineCrawler dc = new DefineCrawler();
+               middletext.setText(dc.search("Fish"));
+            }
+        });
         pane.add(button, BorderLayout.LINE_END);
+        pane.add(middletext, BorderLayout.CENTER);
          
     }
      
