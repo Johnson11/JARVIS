@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.text.DefaultCaret;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -8,7 +10,7 @@ import java.awt.event.ActionListener;
 import java.util.TimerTask;
 import java.util.Timer;
  
-public class gui {
+public class gui extends JFrame{
     public static boolean RIGHT_TO_LEFT = false;
      
     public static void addComponentsToPane(Container pane) {
@@ -29,27 +31,20 @@ public class gui {
         tp2.setBackground(Color.black);
         tp2.setForeground(Color.green);
         pane.add(tp2, BorderLayout.LINE_START);
-        final textpanel tp3 = new textpanel("Nr 3");
-        pane.add(tp3, BorderLayout.PAGE_END);
+		DefaultCaret caret = (DefaultCaret)tp2.getCaret();
+		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
         JButton button = new JButton("Matrix!");
 
         // Timer for matrix
         class Matrix extends TimerTask {
         	private int counter = 0;
             public void run() {
-               if(counter < 20){
             	   tp2.matrix();
-            	   counter++;
-               }
-               else{
-            	   counter = 0;
-            	   tp2.append("\n");
-               }
                
             }
          }
         Timer timer = new Timer();
-        timer.schedule(new Matrix(), 0, 5);
+        timer.schedule(new Matrix(), 0, 500);
         
         pane.add(button, BorderLayout.LINE_END);
          
@@ -63,7 +58,7 @@ public class gui {
     static void createAndShowGUI() {
          
         //Create and set up the window.
-        JFrame frame = new JFrame("BorderLayoutDemo");
+        gui frame = new gui();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 600);
         //Set up the content pane.
